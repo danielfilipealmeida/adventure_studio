@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		651F88052C99F43A008E629F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 651F88042C99F43A008E629F /* README.md */; };
 		659958792C922577008D0D46 /* AdventureStudioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958782C922577008D0D46 /* AdventureStudioApp.swift */; };
 		6599587B2C922577008D0D46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599587A2C922577008D0D46 /* ContentView.swift */; };
-		6599587D2C922577008D0D46 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599587C2C922577008D0D46 /* Item.swift */; };
+		6599587D2C922577008D0D46 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599587C2C922577008D0D46 /* Project.swift */; };
 		6599587F2C922579008D0D46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6599587E2C922579008D0D46 /* Assets.xcassets */; };
 		659958822C922579008D0D46 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659958812C922579008D0D46 /* Preview Assets.xcassets */; };
 		6599588D2C922579008D0D46 /* AdventureStudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599588C2C922579008D0D46 /* AdventureStudioTests.swift */; };
 		659958972C92257A008D0D46 /* AdventureStudioUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958962C92257A008D0D46 /* AdventureStudioUITests.swift */; };
 		659958992C92257A008D0D46 /* AdventureStudioUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958982C92257A008D0D46 /* AdventureStudioUITestsLaunchTests.swift */; };
+		659958A72C9229D1008D0D46 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958A62C9229D1008D0D46 /* Room.swift */; };
+		659958A92C94AC8A008D0D46 /* ProjectElementsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958A82C94AC8A008D0D46 /* ProjectElementsMenu.swift */; };
+		659958AB2C94BBBC008D0D46 /* ProjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958AA2C94BBBC008D0D46 /* ProjectDetails.swift */; };
+		659958AE2C9738D2008D0D46 /* RoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958AD2C9738D2008D0D46 /* RoomsView.swift */; };
+		659958B02C9738FE008D0D46 /* ObjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958AF2C9738FE008D0D46 /* ObjectsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,10 +41,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		651F88042C99F43A008E629F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		659958752C922577008D0D46 /* AdventureStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659958782C922577008D0D46 /* AdventureStudioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureStudioApp.swift; sourceTree = "<group>"; };
 		6599587A2C922577008D0D46 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		6599587C2C922577008D0D46 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		6599587C2C922577008D0D46 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		6599587E2C922579008D0D46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		659958812C922579008D0D46 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		659958832C922579008D0D46 /* AdventureStudio.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AdventureStudio.entitlements; sourceTree = "<group>"; };
@@ -47,6 +54,11 @@
 		659958922C92257A008D0D46 /* AdventureStudioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AdventureStudioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659958962C92257A008D0D46 /* AdventureStudioUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureStudioUITests.swift; sourceTree = "<group>"; };
 		659958982C92257A008D0D46 /* AdventureStudioUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureStudioUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		659958A62C9229D1008D0D46 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		659958A82C94AC8A008D0D46 /* ProjectElementsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectElementsMenu.swift; sourceTree = "<group>"; };
+		659958AA2C94BBBC008D0D46 /* ProjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetails.swift; sourceTree = "<group>"; };
+		659958AD2C9738D2008D0D46 /* RoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomsView.swift; sourceTree = "<group>"; };
+		659958AF2C9738FE008D0D46 /* ObjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +89,7 @@
 		6599586C2C922577008D0D46 = {
 			isa = PBXGroup;
 			children = (
+				651F88042C99F43A008E629F /* README.md */,
 				659958772C922577008D0D46 /* AdventureStudio */,
 				6599588B2C922579008D0D46 /* AdventureStudioTests */,
 				659958952C92257A008D0D46 /* AdventureStudioUITests */,
@@ -97,12 +110,16 @@
 		659958772C922577008D0D46 /* AdventureStudio */ = {
 			isa = PBXGroup;
 			children = (
+				659958AC2C94EF10008D0D46 /* UIElements */,
+				659958A52C9229AA008D0D46 /* Data */,
 				659958782C922577008D0D46 /* AdventureStudioApp.swift */,
 				6599587A2C922577008D0D46 /* ContentView.swift */,
-				6599587C2C922577008D0D46 /* Item.swift */,
 				6599587E2C922579008D0D46 /* Assets.xcassets */,
 				659958832C922579008D0D46 /* AdventureStudio.entitlements */,
 				659958802C922579008D0D46 /* Preview Content */,
+				659958AA2C94BBBC008D0D46 /* ProjectDetails.swift */,
+				659958AD2C9738D2008D0D46 /* RoomsView.swift */,
+				659958AF2C9738FE008D0D46 /* ObjectsView.swift */,
 			);
 			path = AdventureStudio;
 			sourceTree = "<group>";
@@ -130,6 +147,23 @@
 				659958982C92257A008D0D46 /* AdventureStudioUITestsLaunchTests.swift */,
 			);
 			path = AdventureStudioUITests;
+			sourceTree = "<group>";
+		};
+		659958A52C9229AA008D0D46 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				6599587C2C922577008D0D46 /* Project.swift */,
+				659958A62C9229D1008D0D46 /* Room.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		659958AC2C94EF10008D0D46 /* UIElements */ = {
+			isa = PBXGroup;
+			children = (
+				659958A82C94AC8A008D0D46 /* ProjectElementsMenu.swift */,
+			);
+			path = UIElements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				651F88052C99F43A008E629F /* README.md in Resources */,
 				659958822C922579008D0D46 /* Preview Assets.xcassets in Resources */,
 				6599587F2C922579008D0D46 /* Assets.xcassets in Resources */,
 			);
@@ -263,8 +298,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6599587B2C922577008D0D46 /* ContentView.swift in Sources */,
-				6599587D2C922577008D0D46 /* Item.swift in Sources */,
+				659958B02C9738FE008D0D46 /* ObjectsView.swift in Sources */,
+				6599587D2C922577008D0D46 /* Project.swift in Sources */,
+				659958A72C9229D1008D0D46 /* Room.swift in Sources */,
 				659958792C922577008D0D46 /* AdventureStudioApp.swift in Sources */,
+				659958AE2C9738D2008D0D46 /* RoomsView.swift in Sources */,
+				659958AB2C94BBBC008D0D46 /* ProjectDetails.swift in Sources */,
+				659958A92C94AC8A008D0D46 /* ProjectElementsMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,11 +8,25 @@
 import SwiftUI
 import SwiftData
 
+enum ProjectElement {
+    case Rooms
+    case Objects
+}
+
+
+/// Gathers all the application run-time variables used to manage the app into one struct
+@Observable
+class AppState {
+    var mode: ProjectElement = .Rooms
+}
+
 @main
 struct AdventureStudioApp: App {
+    @State var appState = AppState()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Project.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +39,7 @@ struct AdventureStudioApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(appState)
         }
         .modelContainer(sharedModelContainer)
     }

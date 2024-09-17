@@ -10,50 +10,84 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Environment(AppState.self) private var appState
+    @Query private var projects: [Project]
+    @State private var currentProject: Project?
+    @State private var currentRoom: Room?
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+            List(selection: $currentProject) {
+                ForEach(projects, id: \.self) { project in
+                    NavigationLink(project.name, value: project)
                 }
-                .onDelete(perform: deleteItems)
+                .onDelete(perform: deleteProjects)
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
             .toolbar {
                 ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
+                    Button(action: addProject) {
+                        Label("Add Project", systemImage: "plus")
                     }
                 }
             }
+        } content: {
+            if let project = currentProject {
+                VStack {
+                    Button(action: addRoom) {
+                        Label("Add Room", systemImage: "plus")
+                    }
+                    List(selection: $currentRoom) {
+                        ForEach(project.rooms, id:\.self) { room in
+                            Text(room.name)
+                        }
+                    }
+                }
+                
+                
+            }
+            else {
+                Text ("Please select a Project")
+            }
         } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+            if let room = currentRoom {
+                RoomsView(currentRoom: room)
+            } else {
+                Text("Select a Room")
             }
         }
     }
+
+    private func addProject() {
+        withAnimation {
+            let newProject = Project(name: "New Project", rooms: [], firstRoomIndex: 0)
+            modelContext.insert(newProject)
+        }
+    }
+
+    private func deleteProjects(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(projects[index])
+            }
+        }
+    }
+    
+    private func addRoom(){
+        withAnimation {
+            let newRoom = Room(name: "New Room", description: "Add the room description", project: currentProject!)
+            modelContext.insert(newRoom)
+            
+        }
+    }
 }
 
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
-}
+/*
+ #Preview {
+ VStack {
+ @State var appState = AppState()
+ ContentView(appState: $appState)
+ .modelContainer(for: Project.self, inMemory: true)
+ }
+ }
+ */
