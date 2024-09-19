@@ -51,8 +51,6 @@ struct ContentView: View {
                         currentProject: $currentProject,
                         rooms: project.rooms
                     )
-                    
-                    
                 }
                 else {
                     Text ("Please select a Project")
@@ -70,7 +68,6 @@ struct ContentView: View {
                 if let room = currentRoom {
                     RoomsView(currentRoom: room)
                         .id(room.id)
-                        .padding()
                 } else {
                     Text("Select a Room")
                 }
