@@ -46,26 +46,11 @@ struct ContentView: View {
         } content: {
             if appState.mode == .Rooms {
                 if let project = currentProject {
-                    VStack(alignment: .trailing, spacing: 0) {
-                        
-                        
-                        
-                        List(selection: $currentRoom) {
-                            ForEach(project.rooms, id:\.self) { room in
-                                Text(room.name)
-                            }
-                        }
-                        
-                        HStack {
-                            Button(action: addRoom) {
-                                //Label("Add Room", systemImage: "plus")
-                                Image(systemName: "plus").frame(width: 24, height: 24)
-                            }
-                            Button(action: deleteRoom) {
-                                Image(systemName: "minus").frame(width: 24, height: 24)
-                            }
-                        }.padding().buttonStyle(.borderless)
-                    }
+                    RoomsListView(
+                        currentRoom: $currentRoom,
+                        currentProject: $currentProject,
+                        rooms: project.rooms
+                    )
                     
                     
                 }
@@ -81,13 +66,18 @@ struct ContentView: View {
             }
             
         } detail: {
-            if let room = currentRoom, let project = currentProject {
-                RoomsView(currentRoom: room)
-                    .id(room.id)
-                    .padding()
+            if let _ = currentProject {
+                if let room = currentRoom {
+                    RoomsView(currentRoom: room)
+                        .id(room.id)
+                        .padding()
+                } else {
+                    Text("Select a Room")
+                }
             } else {
-                Text("Select a Room")
+                Text("No project selected")
             }
+            
         }
         
     }
@@ -107,26 +97,7 @@ struct ContentView: View {
         }
     }
     
-    private func addRoom(){
-        withAnimation {
-            guard let project = currentProject else { return }
-            
-            let newRoom = Room(name: "New Room", description: "Add the room description", project: currentProject!)
-            modelContext.insert(newRoom)
-            
-            //try? modelContext.save()
-            
-        }
-    }
     
-    private func deleteRoom() {
-        withAnimation {
-            guard let project = currentRoom else { return }
-            
-            modelContext.delete(project)
-            currentRoom = nil
-        }
-    }
     
     private func setRoomMode() {
         appState.mode = .Rooms
@@ -137,12 +108,45 @@ struct ContentView: View {
     }
 }
 
-/*
- #Preview {
- VStack {
- @State var appState = AppState()
- ContentView(appState: $appState)
- .modelContainer(for: Project.self, inMemory: true)
- }
- }
- */
+
+#Preview {
+    VStack {
+        @State var appState = AppState()
+        
+        let projectsData:[Dictionary] = [
+          [
+              "name": "Project one",
+              "rooms": [
+                  [
+                      "name": "Garden",
+                      "desc": "Lorem Ipsum"
+                  ],
+                  [
+                      "name": "Porch",
+                      "desc": "blah blah"
+                  ]
+              ]
+          ],
+          [
+              "name": "Project two",
+              "rooms": [
+                [
+                    "name": "Green path",
+                    "desc": "Lorem Ipsum"
+                ],
+                [
+                    "name": "Mountain top",
+                    "desc": "blah blah"
+                ]
+            ]
+          ]
+        ]
+        let previewContainer = getPreviewModelContainer(projectsData: projectsData)
+        
+        ContentView()
+            .modelContainer(previewContainer)
+            .environment(appState)
+    }
+    
+    
+}

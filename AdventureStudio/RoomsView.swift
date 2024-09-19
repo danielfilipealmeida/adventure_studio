@@ -35,10 +35,6 @@ struct RoomsView: View {
         
     }
     
-    func addRoom() {
-        
-    }
-    
     func saveRoom() {
         withAnimation {
             currentRoom.desc = description
@@ -46,16 +42,6 @@ struct RoomsView: View {
         }
        
     }
-    
-    /*
-    private func deleteRooms(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(project.rooms[index])
-            }
-        }
-    }
-     */
 }
 
 /*
