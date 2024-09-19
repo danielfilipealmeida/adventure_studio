@@ -48,29 +48,9 @@ struct RoomsView: View {
  #Preview {
      VStack {
          let project: Project = .init(name: "My preview Project", rooms: [], firstRoomIndex: 0)
-         
-         /*
-         let previewContainer = getPreviewModelContainer(projectsData: [
-            [
-                "name": "Project one",
-                "rooms": [
-                    [
-                        "name": "Garden",
-                        "desc": "Lorem Ipsum"
-                    ],
-                    [
-                        "name": "Porch",
-                        "desc": "blah blah"
-                    ]
-                ]
-            ],
-         ])
-          */
          let room: Room = Room(name: "Preview Room", description: "Description here", project: nil)
          RoomsView(currentRoom: room)
              .modelContainer(for: Project.self, inMemory: true)
-             //.modelContainer(previewContainer)
      }
-
  }
  
