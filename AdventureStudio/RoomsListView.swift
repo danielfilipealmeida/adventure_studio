@@ -51,8 +51,19 @@ struct RoomsListView: View {
     }
 }
 
-/*
+
  #Preview {
- RoomsListView(currentRoom: <#T##Binding<Room?>#>, currentProject: <#T##Binding<Project?>#>, rooms: <#T##[Room]#>)
+     VStack {
+         @State var currentProject: Project? = Project(name: "Test Project", rooms: [], firstRoomIndex: 0)
+         var rooms: [Room] = {
+             // adding another room to the array breaks the preview
+             var rooms: [Room] = [
+                Room(name: "Preview room", description: "The description", project: currentProject)
+                ]
+             return rooms
+         }()
+         @State var currentRoom: Room? = rooms[0]
+         RoomsListView(currentRoom: $currentRoom, currentProject: $currentProject, rooms: rooms)
+     }
  }
- */
+ 
