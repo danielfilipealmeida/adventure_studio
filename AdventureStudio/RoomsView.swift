@@ -22,17 +22,17 @@ struct RoomsView: View {
 
     
     var body: some View {
-        VStack(alignment: .trailing) {
+        VStack(alignment: .trailing, spacing: 20) {
             Form {
                 TextField("Name", text: $name)
+                
                 TextEditor(text: $description)
             }
+            
             Button(action: saveRoom) {
                 Text("Save Room")
             }
-        }
-       
-        
+        }.padding()
     }
     
     func saveRoom() {
@@ -44,11 +44,13 @@ struct RoomsView: View {
     }
 }
 
-/*
+
  #Preview {
- let fm: FileManager = FileManager.default
- let project: Project = .init(name: "My preview Project", rooms: [], firstRoomIndex: 0)
- 
- RoomsView(project: project)
+     VStack {
+         let project: Project = .init(name: "My preview Project", rooms: [], firstRoomIndex: 0)
+         let room: Room = Room(name: "Preview Room", description: "Description here", project: nil)
+         RoomsView(currentRoom: room)
+             .modelContainer(for: Project.self, inMemory: true)
+     }
  }
- */
+ 
