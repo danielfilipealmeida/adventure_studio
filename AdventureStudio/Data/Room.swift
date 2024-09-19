@@ -25,7 +25,7 @@ final class Room {
     init(
         name: String,
         description: String,
-        project: Project
+        project: Project?
     ) {
         self.name = name
         self.desc = description
