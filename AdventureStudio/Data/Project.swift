@@ -12,7 +12,7 @@ import SwiftData
 final class Project {
     var name: String
     @Relationship(deleteRule: .cascade, inverse: \Room.project)
-    var rooms = [Room]()
+    var rooms: [Room] = []
     var firstRoomIndex: Int
     
     init(name: String, rooms: [Room], firstRoomIndex: Int) {

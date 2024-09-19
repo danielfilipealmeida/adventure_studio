@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-enum Directions {
+enum Direction: Codable {
     case north
     case south
     case east
@@ -19,7 +19,7 @@ enum Directions {
 final class Room {
     var name: String
     var desc: String
-    var project: Project
+    var project: Project?
     //var rooms: Dictionary<Directions, Room>?
     
     init(

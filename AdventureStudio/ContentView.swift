@@ -29,33 +29,67 @@ struct ContentView: View {
                     Button(action: addProject) {
                         Label("Add Project", systemImage: "plus")
                     }
+                    
                 }
+                ToolbarItem {
+                    Button(action: setRoomMode) {
+                        Label("Rooms Mode", systemImage: "house.fill")
+                    }
+                }
+                ToolbarItem {
+                    Button(action: setObjectMode) {
+                        Label("Objects Mode", systemImage: "shippingbox.fill")
+                    }
+                }
+             
             }
         } content: {
-            if let project = currentProject {
-                VStack {
-                    Button(action: addRoom) {
-                        Label("Add Room", systemImage: "plus")
-                    }
-                    List(selection: $currentRoom) {
-                        ForEach(project.rooms, id:\.self) { room in
-                            Text(room.name)
+            if appState.mode == .Rooms {
+                if let project = currentProject {
+                    VStack(alignment: .trailing, spacing: 0) {
+                        
+                        
+                        
+                        List(selection: $currentRoom) {
+                            ForEach(project.rooms, id:\.self) { room in
+                                Text(room.name)
+                            }
                         }
+                        
+                        HStack {
+                            Button(action: addRoom) {
+                                //Label("Add Room", systemImage: "plus")
+                                Image(systemName: "plus").frame(width: 24, height: 24)
+                            }
+                            Button(action: deleteRoom) {
+                                Image(systemName: "minus").frame(width: 24, height: 24)
+                            }
+                        }.padding().buttonStyle(.borderless)
                     }
+                    
+                    
                 }
-                
-                
+                else {
+                    Text ("Please select a Project")
+                }
+            }
+            else if appState.mode == .Objects {
+                Text("Objects form. implement")
             }
             else {
-                Text ("Please select a Project")
+                Text("Invalid mode")
             }
+            
         } detail: {
-            if let room = currentRoom {
+            if let room = currentRoom, let project = currentProject {
                 RoomsView(currentRoom: room)
+                    .id(room.id)
+                    .padding()
             } else {
                 Text("Select a Room")
             }
         }
+        
     }
 
     private func addProject() {
@@ -75,10 +109,31 @@ struct ContentView: View {
     
     private func addRoom(){
         withAnimation {
+            guard let project = currentProject else { return }
+            
             let newRoom = Room(name: "New Room", description: "Add the room description", project: currentProject!)
             modelContext.insert(newRoom)
             
+            //try? modelContext.save()
+            
         }
+    }
+    
+    private func deleteRoom() {
+        withAnimation {
+            guard let project = currentRoom else { return }
+            
+            modelContext.delete(project)
+            currentRoom = nil
+        }
+    }
+    
+    private func setRoomMode() {
+        appState.mode = .Rooms
+    }
+    
+    private func setObjectMode() {
+        appState.mode = .Objects
     }
 }
 
