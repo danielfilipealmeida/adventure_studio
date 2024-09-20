@@ -47,7 +47,7 @@ struct RoomsView: View {
 
  #Preview {
      VStack {
-         let project: Project = .init(name: "My preview Project", rooms: [], firstRoomIndex: 0)
+         let project: Project = Project(name: "My preview Project", firstRoomIndex: 0)
          let room: Room = Room(name: "Preview Room", description: "Description here", project: nil)
          RoomsView(currentRoom: room)
              .modelContainer(for: Project.self, inMemory: true)

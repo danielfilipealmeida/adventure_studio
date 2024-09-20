@@ -23,6 +23,7 @@ struct RoomsListView: View {
                 }
             }
             
+            // todo move this to a new UI Element
             HStack {
                 Button(action: addRoom) {
                     Image(systemName: "plus").frame(width: 24, height: 24)
@@ -54,7 +55,7 @@ struct RoomsListView: View {
 
  #Preview {
      VStack {
-         @State var currentProject: Project? = Project(name: "Test Project", rooms: [], firstRoomIndex: 0)
+         @State var currentProject: Project? = Project(name: "Test Project", firstRoomIndex: 0)
          var rooms: [Room] = {
              // adding another room to the array breaks the preview
              var rooms: [Room] = [

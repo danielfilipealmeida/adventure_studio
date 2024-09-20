@@ -14,6 +14,7 @@ struct ContentView: View {
     @Query private var projects: [Project]
     @State private var currentProject: Project?
     @State private var currentRoom: Room?
+    @State private var currentObject: Object?
 
     var body: some View {
         NavigationSplitView {
@@ -57,7 +58,12 @@ struct ContentView: View {
                 }
             }
             else if appState.mode == .Objects {
-                Text("Objects form. implement")
+                /*
+                if let project = currentProject {
+                    ObjectsListView(currentObject: $currentObject, objects: project.objects)
+                }
+                 */
+                Text("Implement")
             }
             else {
                 Text("Invalid mode")
@@ -81,7 +87,7 @@ struct ContentView: View {
 
     private func addProject() {
         withAnimation {
-            let newProject = Project(name: "New Project", rooms: [], firstRoomIndex: 0)
+            let newProject = Project(name: "New Project", firstRoomIndex: 0)
             modelContext.insert(newProject)
         }
     }

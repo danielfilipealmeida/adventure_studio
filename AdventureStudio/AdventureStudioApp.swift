@@ -26,7 +26,9 @@ struct AdventureStudioApp: App {
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Project.self,
+            Object.self,
+            Room.self,
+            Project.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

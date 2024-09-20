@@ -20,7 +20,6 @@ final class Room {
     var name: String
     var desc: String
     var project: Project?
-    //var rooms: Dictionary<Directions, Room>?
     
     init(
         name: String,

@@ -11,13 +11,20 @@ import SwiftData
 @Model
 final class Project {
     var name: String
+    
     @Relationship(deleteRule: .cascade, inverse: \Room.project)
     var rooms: [Room] = []
+    
+    @Relationship(inverse: \Object.project)
+    var objects: [Object] = []
+    
     var firstRoomIndex: Int
     
-    init(name: String, rooms: [Room], firstRoomIndex: Int) {
+    init(
+        name: String,
+        firstRoomIndex: Int
+    ) {
         self.name = name
-        self.rooms = rooms
         self.firstRoomIndex = firstRoomIndex
     }
 }
