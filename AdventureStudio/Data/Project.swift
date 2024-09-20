@@ -15,8 +15,8 @@ final class Project {
     @Relationship(deleteRule: .cascade, inverse: \Room.project)
     var rooms: [Room] = []
     
-    @Relationship(inverse: \Object.project)
-    var objects: [Object] = []
+    @Relationship(inverse: \Obj.project)
+    var objects: [Obj] = []
     
     var firstRoomIndex: Int
     

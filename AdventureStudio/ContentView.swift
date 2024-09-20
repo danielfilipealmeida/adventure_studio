@@ -12,9 +12,14 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AppState.self) private var appState
     @Query private var projects: [Project]
+
     @State private var currentProject: Project?
+    @Query private var objects: [Obj]
+     
     @State private var currentRoom: Room?
-    @State private var currentObject: Object?
+    
+    @State private var currentObject: Obj?
+    
 
     var body: some View {
         NavigationSplitView {
@@ -58,12 +63,15 @@ struct ContentView: View {
                 }
             }
             else if appState.mode == .Objects {
-                /*
+               
                 if let project = currentProject {
-                    ObjectsListView(currentObject: $currentObject, objects: project.objects)
+                    ObjectsListView(
+                        currentObject: $currentObject,
+                        currentProject: $currentProject,
+                        objects: project.objects
+                    )
                 }
-                 */
-                Text("Implement")
+                
             }
             else {
                 Text("Invalid mode")
@@ -112,40 +120,39 @@ struct ContentView: View {
 }
 
 
+
 #Preview {
     VStack {
         @State var appState = AppState()
-        
         let projectsData:[Dictionary] = [
-          [
-              "name": "Project one",
-              "rooms": [
-                  [
-                      "name": "Garden",
-                      "desc": "Lorem Ipsum"
-                  ],
-                  [
-                      "name": "Porch",
-                      "desc": "blah blah"
-                  ]
-              ]
-          ],
-          [
-              "name": "Project two",
-              "rooms": [
-                [
-                    "name": "Green path",
-                    "desc": "Lorem Ipsum"
-                ],
-                [
-                    "name": "Mountain top",
-                    "desc": "blah blah"
+            [
+                "name": "Project one",
+                "rooms": [
+                    [
+                        "name": "Garden",
+                        "desc": "Lorem Ipsum"
+                    ],
+                    [
+                        "name": "Porch",
+                        "desc": "blah blah"
+                    ]
+                ]
+            ],
+            [
+                "name": "Project two",
+                "rooms": [
+                    [
+                        "name": "Green path",
+                        "desc": "Lorem Ipsum"
+                    ],
+                    [
+                        "name": "Mountain top",
+                        "desc": "blah blah"
+                    ]
                 ]
             ]
-          ]
         ]
         let previewContainer = getPreviewModelContainer(projectsData: projectsData)
-        
         ContentView()
             .modelContainer(previewContainer)
             .environment(appState)
@@ -153,3 +160,4 @@ struct ContentView: View {
     
     
 }
+

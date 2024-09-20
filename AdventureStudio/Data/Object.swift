@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Object {
+final class Obj {
     var name: String
     var desc: String
     var pickable: Bool
