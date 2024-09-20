@@ -40,7 +40,6 @@ struct RoomsView: View {
             currentRoom.desc = description
             currentRoom.name = name
         }
-       
     }
 }
 

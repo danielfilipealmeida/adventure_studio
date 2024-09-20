@@ -79,11 +79,21 @@ struct ContentView: View {
             
         } detail: {
             if let _ = currentProject {
-                if let room = currentRoom {
-                    RoomsView(currentRoom: room)
-                        .id(room.id)
-                } else {
-                    Text("Select a Room")
+                if appState.mode == .Rooms {
+                    if let room = currentRoom {
+                        RoomsView(currentRoom: room)
+                            .id(room.id)
+                    } else {
+                        Text("Select a Room")
+                    }
+                }
+                if appState.mode == .Objects {
+                    if let object = currentObject {
+                        ObjectsView(currentObject: object)
+                            .id(object.id)
+                    } else {
+                        Text("Select an Object")
+                    }
                 }
             } else {
                 Text("No project selected")
