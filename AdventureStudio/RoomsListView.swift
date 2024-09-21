@@ -22,15 +22,7 @@ struct RoomsListView: View {
                     Text(room.name)
                 }
             }
-            
-            HStack {
-                Button(action: addRoom) {
-                    Image(systemName: "plus").frame(width: 24, height: 24)
-                }
-                Button(action: deleteRoom) {
-                    Image(systemName: "minus").frame(width: 24, height: 24)
-                }
-            }.padding().buttonStyle(.borderless)
+            ListViewButtons(addAction: addRoom, deleteAction: deleteRoom)
         }
     }
     
@@ -52,18 +44,21 @@ struct RoomsListView: View {
 }
 
 
+
  #Preview {
+     
      VStack {
-         @State var currentProject: Project? = Project(name: "Test Project", rooms: [], firstRoomIndex: 0)
+         @State var currentProject: Project? = Project(name: "Test Project", firstRoomIndex: 0)
          var rooms: [Room] = {
              // adding another room to the array breaks the preview
              var rooms: [Room] = [
                 Room(name: "Preview room", description: "The description", project: currentProject)
-                ]
+             ]
              return rooms
          }()
          @State var currentRoom: Room? = rooms[0]
          RoomsListView(currentRoom: $currentRoom, currentProject: $currentProject, rooms: rooms)
      }
  }
+
  
