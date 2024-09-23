@@ -11,13 +11,13 @@ import SwiftData
 @Model
 final class RoomConnection {
     var origin: Room
-    //var destiny: Room
+    var destiny: Room
     var direction: Direction
     var allowedInverseDirection: Bool
     
-    init(origin: Room,  direction: Direction, allowedInverseDirection: Bool) {
+    init(origin: Room, destiny: Room, direction: Direction, allowedInverseDirection: Bool) {
         self.origin = origin
-       //self.destiny = destiny
+        self.destiny = destiny
         self.direction = direction
         self.allowedInverseDirection = allowedInverseDirection
     }

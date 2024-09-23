@@ -7,42 +7,65 @@
 
 import SwiftUI
 
+enum RoomConnectionEditViewMode {
+    case Create
+    case Edit
+}
+
 struct RoomConnectionEditView: View {
-    var connection: RoomConnection
+    var roomOrigin: Room
+    var connection: RoomConnection?
     var rooms: [Room]
     @State private var destinyRoom: Room?
-    @State private var allowInverseDiraction: Bool
+    @State private var allowInverseDirection: Bool
     @State private var direction: Direction?
+    @State private var originRoomName: String
+    var mode: RoomConnectionEditViewMode
     
-    init(connection: RoomConnection, rooms: [Room]) {
-        self.connection = connection
+    init(roomOrigin: Room, rooms: [Room], connection: RoomConnection? = nil) {
+        self.roomOrigin = roomOrigin
+        self.originRoomName = self.roomOrigin.name
         self.rooms = rooms
-        self.destinyRoom = nil
-        self.allowInverseDiraction = connection.allowedInverseDirection
-        self.direction = nil
+        self.connection = connection
+        
+        if connection != nil {
+            self.connection = connection!
+            //self.destinyRoom = rooms.filter({$0.id == connection?.destiny.id})[0]
+            let positionOfRoom: Int? = rooms.firstIndex(where: { room in
+                room.name == connection?.destiny.name
+            })
+            
+            if positionOfRoom != nil {
+                //self.destinyRoom = rooms[positionOfRoom!]
+            }
+            
+            self.allowInverseDirection = connection!.allowedInverseDirection
+            self.direction = self.connection!.direction
+            self.originRoomName = self.roomOrigin.name
+            self.mode = .Edit
+        }
+        else {
+            self.allowInverseDirection = false
+            self.mode = .Create
+        }
     }
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text("put the name of the origin room here")
-            /*
-            Picker("Room to connect", selection: $destinyRoom){
-                ForEach(rooms, id: \.self) { room in
-                    Text(room.name)
-                }
-            }
-             */
-            Picker("Direction", selection: $direction) {
-                ForEach(DirectionLabels.sorted{$0.value < $1.value}, id:\.key) {key, value in
-                    Text(value).tag(key)
-                }
-            }
+        Form{
+            TextField("Room of Origin", text: $originRoomName).disabled(true)
             Picker("Destiny Room", selection: $destinyRoom) {
                 ForEach(rooms, id:\.self) { room in
                     Text(room.name).tag(room)
                 }
                 
             }
-            Toggle(isOn: $allowInverseDiraction) {
+            Picker("Direction", selection: $direction) {
+                ForEach(DirectionLabels.sorted{$0.value < $1.value}, id:\.key) {key, value in
+                    Text(value).tag(key)
+                }
+            }
+            
+            Toggle(isOn: $allowInverseDirection) {
                 Text("Allow inverse direction")
             }
             
@@ -70,8 +93,12 @@ struct RoomConnectionEditView: View {
             Room(name: "Bathroom", description: "", project: nil),
             Room(name: "Living Room", description: "", project: nil)
         ]
-        let connection: RoomConnection = .init(origin: rooms[0], direction: .east, allowedInverseDirection: true)
-        RoomConnectionEditView(connection: connection, rooms: rooms)
+        /*
+        let connection: RoomConnection = .init(origin: rooms[0], destiny: rooms[1], direction: .east, allowedInverseDirection: true)
+        RoomConnectionEditView(roomOrigin: rooms[0], rooms: rooms, connection: connection)
+         */
+        
+        RoomConnectionEditView(roomOrigin: rooms[0], rooms: rooms)
     }
     
 }
