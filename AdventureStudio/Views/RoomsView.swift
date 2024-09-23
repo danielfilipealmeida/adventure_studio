@@ -26,8 +26,18 @@ struct RoomsView: View {
             Form {
                 TextField("Name", text: $name)
                 
-                TextEditor(text: $description)
+                LabeledContent("Descriptions") {
+                    TextEditor(text: $description)
+                }
+                
+                
+                LabeledContent("Connections") {
+                    RoomConnectionListView(currentRoom: currentRoom)
+                }
+                
             }
+            
+            
             
             Button(action: saveRoom) {
                 Text("Save Room")
