@@ -21,7 +21,7 @@ struct ObjectsListView: View {
                     Text(objects.name)
                 }
             }
-            ListViewButtons(addAction: addObject, deleteAction: deleteObject)
+            ListViewButtons(mode: .Object, addAction: addObject, deleteAction: deleteObject)
             
         }
     }

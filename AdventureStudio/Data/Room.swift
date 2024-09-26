@@ -15,11 +15,20 @@ enum Direction: Codable {
     case west
 }
 
+let DirectionLabels = [
+    Direction.north: "North",
+    Direction.south: "South",
+    Direction.east: "East",
+    Direction.west: "West"
+]
+
 @Model
 final class Room {
     var name: String
     var desc: String
     var project: Project?
+    
+    var connections: [RoomConnection] = []
     
     init(
         name: String,

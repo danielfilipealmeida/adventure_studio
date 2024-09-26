@@ -18,6 +18,7 @@ enum ProjectElement {
 @Observable
 class AppState {
     var mode: ProjectElement = .Rooms
+    var currentProject: Project? = nil
 }
 
 @main

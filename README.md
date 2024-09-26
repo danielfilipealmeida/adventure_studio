@@ -25,3 +25,29 @@
 
 Adventure Studio is currently in its early stages, and the name may change in the future. It is still under active development, with plans to add more features and expand functionality based on feedback from the community.
 
+
+
+## File Structure
+
+The files are organized into the following groups:
+
+### Views
+
+Full-featured views that occupy an entire block of a `NavigationSplitView`.
+
+### UI Elements
+
+Reusable components that can be used across multiple views.
+
+### UI Blocks
+
+Single-use components designed to be used within a `NavigationSplitView`.
+
+### Dialogs
+
+Standalone views that are displayed inside windows or popups.
+
+---
+
+This version simplifies the descriptions and clarifies the file structure purpose.
+
