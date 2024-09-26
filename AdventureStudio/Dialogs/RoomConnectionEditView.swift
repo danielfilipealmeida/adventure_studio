@@ -13,6 +13,10 @@ enum RoomConnectionEditViewMode {
 }
 
 struct RoomConnectionEditView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(AppState.self) private var appState
+    
+    
     var roomOrigin: Room
     var connection: RoomConnection?
     var rooms: [Room]
@@ -21,8 +25,10 @@ struct RoomConnectionEditView: View {
     @State private var direction: Direction?
     @State private var originRoomName: String
     var mode: RoomConnectionEditViewMode
+    @Binding var showView: Bool
     
-    init(roomOrigin: Room, rooms: [Room], connection: RoomConnection? = nil) {
+    init(showView: Binding<Bool>, roomOrigin: Room, rooms: [Room], connection: RoomConnection? = nil) {
+        self._showView = showView
         self.roomOrigin = roomOrigin
         self.originRoomName = self.roomOrigin.name
         self.rooms = rooms
@@ -32,7 +38,7 @@ struct RoomConnectionEditView: View {
             self.connection = connection!
             //self.destinyRoom = rooms.filter({$0.id == connection?.destiny.id})[0]
             let positionOfRoom: Int? = rooms.firstIndex(where: { room in
-                room.name == connection?.destiny.name
+                room.name == connection!.destiny!.name
             })
             
             if positionOfRoom != nil {
@@ -78,10 +84,27 @@ struct RoomConnectionEditView: View {
     }
     
     func cancel() {
+        self.showView = false
         
     }
     
     func save() {
+        withAnimation {
+            if let newDestinyRoom = destinyRoom,
+                let newDirection = direction,
+                let currentProject: Project = appState.currentProject {
+                var newRoomConnection: RoomConnection = .init(
+                    project: currentProject,
+                    origin: roomOrigin,
+                    destiny: newDestinyRoom,
+                    direction: newDirection,
+                    allowedInverseDirection: allowInverseDirection
+                )
+                modelContext.insert(newRoomConnection)
+            }
+            
+        }
+        self.showView = false
         
     }
 }
@@ -93,12 +116,13 @@ struct RoomConnectionEditView: View {
             Room(name: "Bathroom", description: "", project: nil),
             Room(name: "Living Room", description: "", project: nil)
         ]
+        @State var show: Bool = true
         /*
         let connection: RoomConnection = .init(origin: rooms[0], destiny: rooms[1], direction: .east, allowedInverseDirection: true)
         RoomConnectionEditView(roomOrigin: rooms[0], rooms: rooms, connection: connection)
          */
         
-        RoomConnectionEditView(roomOrigin: rooms[0], rooms: rooms)
+        RoomConnectionEditView(showView: $show, roomOrigin: rooms[0], rooms: rooms)
     }
     
 }

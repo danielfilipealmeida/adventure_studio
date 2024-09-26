@@ -9,120 +9,72 @@ import SwiftUI
 import SwiftData
 
 struct RoomConnectionListView: View {
-    var currentRoom: Room
+    @Environment(\.modelContext) private var modelContext
+    @Environment(AppState.self) private var appState
+    
+    @State var currentRoom: Room
+    var rooms: [Room]
     @State var currentRoomConnection: RoomConnection?
+    @State var showRoomConnectionEditView: Bool = false
+    @Query private var connections: [RoomConnection]
     
     var body: some View {
         VStack(alignment: .trailing) {
-            /*
             List(selection: $currentRoomConnection) {
-                ForEach(currentRoom.connections, id:\.self) { connection in
-                    Text(connection.destiny.name)
+                ForEach(connections, id:\.self) { connection in
+                    Text(connection.destiny!.name)
                 }
             }
-             */
             HStack {
                 Button(action: editRoomConnection) {
                     Image(systemName: "pencil").frame(width: 24, height: 24)
                 }.padding().buttonStyle(.borderless)
+                    
                 Spacer()
-                ListViewButtons(addAction: addRoomConnection, deleteAction: deleteRoomConnection)
+                ListViewButtons(mode: .RoomConnection, addAction: addRoomConnection, deleteAction: deleteRoomConnection)
             }
-            
-            
+        }
+        .popover(isPresented: $showRoomConnectionEditView) {
+            RoomConnectionEditView(showView: $showRoomConnectionEditView, roomOrigin: currentRoom, rooms: rooms)
         }
     }
     
     private func addRoomConnection(){
+        showRoomConnectionEditView = true
+        /*
+        withAnimation {
+            if let currentProject: Project = appState.currentProject {
+                var newRoomConnection: RoomConnection = .init(project: currentProject, origin: currentRoom, destiny: rooms[0], direction: .east, allowedInverseDirection: true)
+                modelContext.insert(newRoomConnection)
+            }
+            
+        }
+        */
     }
     
     private func deleteRoomConnection(){
+        withAnimation {
+            guard let _ = currentRoomConnection else { return }
+            modelContext.delete(currentRoomConnection!)
+        }
     }
     
     private func editRoomConnection() {
-        
+        if currentRoomConnection == nil {
+            return
+        }
+        showRoomConnectionEditView = true
     }
 }
 
+
 #Preview {
     VStack {
+        var currentRoom: Room = Room(name: "Living Room", description: "", project: nil)
+        let room1: Room = .init(name: "Kitchen", description: "", project: nil)
+        let room2: Room = .init(name: "Bathroom", description: "", project: nil)
+        var connections: [RoomConnection] = []
         
-        let currentRoom = {
-            let schema = Schema([
-                Project.self,
-            ])
-            let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-            
-            do {
-                let modelContainer =  try ModelContainer(for: schema, configurations: [modelConfiguration])
-                
-                
-                let currentRoom: Room = .init(name: "Living Room", description: "", project: nil)
-                let room1: Room = .init(name: "Kitchen", description: "", project: nil)
-                let room2: Room = .init(name: "Bathroom", description: "", project: nil)
-                modelContainer.mainContext.insert(currentRoom)
-                modelContainer.mainContext.insert(room1)
-                modelContainer.mainContext.insert(room2)
-                
-                /*
-                let roomConnection1: RoomConnection = .init(origin: currentRoom, destiny: room1, direction: .east, allowedInverseDirection: true)
-                let roomConnection2: RoomConnection = .init(origin: currentRoom, destiny: room2, direction: .west, allowedInverseDirection: true)
-                modelContainer.mainContext.insert(roomConnection1)
-                modelContainer.mainContext.insert(roomConnection2)
-                
-                currentRoom.connections.append(roomConnection1)
-                currentRoom.connections.append(roomConnection2)
-                */
-                return currentRoom
-            }
-            
-            catch {
-                fatalError("Could not create ModelContainer: \(error)")
-            }
-            
-            
-        }()
-         /*
-        let projectsData: [Dictionary] = [
-            [
-                "name": "test project",
-                "rooms": [
-                    [
-                        "name": "Living room",
-                        "description": "",
-                        "connections": [
-                            [
-                                "index": 1,
-                                "direction": Direction.east
-                            ],
-                            [
-                                "index": 2,
-                                "direction": Direction.west
-                            ]
-                        ]
-                    ],
-                    [
-                        "name": "Living room",
-                        "description": "Kitchen",
-                        "connections": []
-                    ],
-                    [
-                        "name": "Living room",
-                        "description": "Kitchen",
-                        "connections": []
-                    ]
-                    
-                ]
-            ]
-        ]
-        
-        let previewContainer = getPreviewModelContainer(projectsData: projectsData)
-        @Query var projects: [Project]
-        let currentRoom: Room = projects[0].rooms[0]
-        */
-        RoomConnectionListView(currentRoom: currentRoom)
-            
-            //.modelContainer(previewContainer)
+        RoomConnectionListView(currentRoom: currentRoom, rooms: [currentRoom, room1, room2])
     }
-    
 }

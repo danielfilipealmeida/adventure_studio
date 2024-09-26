@@ -9,20 +9,22 @@ import SwiftUI
 
 struct RoomsView: View {
     @Environment(\.modelContext) private var modelContext
-    var currentRoom: Room
+    @State var currentRoom: Room
+    var rooms: [Room]
     
     @State var name: String
     @State var description: String
     
-    init(currentRoom: Room) {
+    init(currentRoom: Room, rooms: [Room]) {
         self.currentRoom = currentRoom
         self.name = currentRoom.name
         self.description = currentRoom.desc
+        self.rooms = rooms
     }
-
     
     var body: some View {
         VStack(alignment: .trailing, spacing: 20) {
+            Spacer()
             Form {
                 TextField("Name", text: $name)
                 
@@ -32,16 +34,15 @@ struct RoomsView: View {
                 
                 
                 LabeledContent("Connections") {
-                    RoomConnectionListView(currentRoom: currentRoom)
+                    RoomConnectionListView(currentRoom: currentRoom, rooms: rooms)
                 }
-                
+            
             }
-            
-            
-            
+            Spacer()
             Button(action: saveRoom) {
                 Text("Save Room")
             }
+            Spacer()
         }.padding()
     }
     
@@ -53,13 +54,14 @@ struct RoomsView: View {
     }
 }
 
-
+/*
  #Preview {
      VStack {
          let project: Project = Project(name: "My preview Project", firstRoomIndex: 0)
          let room: Room = Room(name: "Preview Room", description: "Description here", project: nil)
-         RoomsView(currentRoom: room)
+         RoomsView(currentRoom: room, rooms: [room])
              .modelContainer(for: Project.self, inMemory: true)
      }
  }
  
+*/

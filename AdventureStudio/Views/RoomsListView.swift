@@ -22,7 +22,7 @@ struct RoomsListView: View {
                     Text(room.name)
                 }
             }
-            ListViewButtons(addAction: addRoom, deleteAction: deleteRoom)
+            ListViewButtons(mode: .Room, addAction: addRoom, deleteAction: deleteRoom)
         }
     }
     
@@ -43,8 +43,6 @@ struct RoomsListView: View {
     }
 }
 
-
-
  #Preview {
      
      VStack {
@@ -57,6 +55,7 @@ struct RoomsListView: View {
              return rooms
          }()
          @State var currentRoom: Room? = rooms[0]
+         
          RoomsListView(currentRoom: $currentRoom, currentProject: $currentProject, rooms: rooms)
      }
  }

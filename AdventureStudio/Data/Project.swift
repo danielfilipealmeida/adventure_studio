@@ -18,6 +18,9 @@ final class Project {
     @Relationship(inverse: \Obj.project)
     var objects: [Obj] = []
     
+    @Relationship(inverse: \Obj.project)
+    var connections: [RoomConnection] = []
+    
     var firstRoomIndex: Int
     
     init(

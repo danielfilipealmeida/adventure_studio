@@ -28,7 +28,6 @@ final class Room {
     var desc: String
     var project: Project?
     
-    @Relationship(deleteRule: .cascade, inverse: \RoomConnection.origin)
     var connections: [RoomConnection] = []
     
     init(

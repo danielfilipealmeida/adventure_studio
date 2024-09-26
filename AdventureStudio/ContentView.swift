@@ -12,14 +12,9 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AppState.self) private var appState
     @Query private var projects: [Project]
-
     @State private var currentProject: Project?
-    @Query private var objects: [Obj]
-     
     @State private var currentRoom: Room?
-    
     @State private var currentObject: Obj?
-    
 
     var body: some View {
         NavigationSplitView {
@@ -28,6 +23,8 @@ struct ContentView: View {
                     NavigationLink(project.name, value: project)
                 }
                 .onDelete(perform: deleteProjects)
+            }.onChange(of: currentProject) {
+                appState.currentProject = currentProject
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
             .toolbar {
@@ -78,10 +75,10 @@ struct ContentView: View {
             }
             
         } detail: {
-            if let _ = currentProject {
+            if let project = currentProject {
                 if appState.mode == .Rooms {
                     if let room = currentRoom {
-                        RoomsView(currentRoom: room)
+                        RoomsView(currentRoom: room, rooms: project.rooms)
                             .id(room.id)
                     } else {
                         Text("Select a Room")
