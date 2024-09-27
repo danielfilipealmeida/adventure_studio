@@ -18,7 +18,6 @@ enum ProjectElement {
 @Observable
 class AppState {
     var mode: ProjectElement = .Rooms
-    var currentProject: Project? = nil
 }
 
 @main
@@ -28,7 +27,8 @@ struct AdventureStudioApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Obj.self,
-            Project.self
+            Room.self,
+            RoomConnection.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

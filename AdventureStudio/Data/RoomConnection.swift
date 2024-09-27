@@ -10,7 +10,6 @@ import SwiftData
 
 @Model
 final class RoomConnection {
-    var project: Project?
     
     @Relationship(inverse: \Room.connections)
     var origin: Room?
@@ -21,8 +20,7 @@ final class RoomConnection {
     var direction: Direction
     var allowedInverseDirection: Bool
     
-    init(project: Project, origin: Room, destiny: Room, direction: Direction, allowedInverseDirection: Bool) {
-        self.project = project
+    init(origin: Room, destiny: Room, direction: Direction, allowedInverseDirection: Bool) {
         self.origin = origin
         self.destiny = destiny
         self.direction = direction

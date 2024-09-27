@@ -14,8 +14,6 @@ final class Obj {
     var desc: String
     var pickable: Bool
     
-    var project: Project?
-    
     init(name: String, description: String, pickable: Bool) {
         self.name = name
         self.desc = description

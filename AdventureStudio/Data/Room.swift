@@ -26,17 +26,14 @@ let DirectionLabels = [
 final class Room {
     var name: String
     var desc: String
-    var project: Project?
     
     var connections: [RoomConnection] = []
     
     init(
         name: String,
-        description: String,
-        project: Project?
+        description: String
     ) {
         self.name = name
         self.desc = description
-        self.project = project
     }
 }

@@ -16,6 +16,7 @@ struct RoomConnectionListView: View {
     var rooms: [Room]
     @State var currentRoomConnection: RoomConnection?
     @State var showRoomConnectionEditView: Bool = false
+    @State var roomConnectionEditViewMode: RoomConnectionEditViewMode = .Edit
     @Query private var connections: [RoomConnection]
     
     var body: some View {
@@ -35,21 +36,13 @@ struct RoomConnectionListView: View {
             }
         }
         .popover(isPresented: $showRoomConnectionEditView) {
-            RoomConnectionEditView(showView: $showRoomConnectionEditView, roomOrigin: currentRoom, rooms: rooms)
+            RoomConnectionEditView(showView: $showRoomConnectionEditView, mode: $roomConnectionEditViewMode, roomOrigin: currentRoom, rooms: rooms, connection: currentRoomConnection)
         }
     }
     
     private func addRoomConnection(){
+        roomConnectionEditViewMode = .Create
         showRoomConnectionEditView = true
-        /*
-        withAnimation {
-            if let currentProject: Project = appState.currentProject {
-                var newRoomConnection: RoomConnection = .init(project: currentProject, origin: currentRoom, destiny: rooms[0], direction: .east, allowedInverseDirection: true)
-                modelContext.insert(newRoomConnection)
-            }
-            
-        }
-        */
     }
     
     private func deleteRoomConnection(){
@@ -63,6 +56,7 @@ struct RoomConnectionListView: View {
         if currentRoomConnection == nil {
             return
         }
+        roomConnectionEditViewMode = .Edit
         showRoomConnectionEditView = true
     }
 }
@@ -70,9 +64,9 @@ struct RoomConnectionListView: View {
 
 #Preview {
     VStack {
-        var currentRoom: Room = Room(name: "Living Room", description: "", project: nil)
-        let room1: Room = .init(name: "Kitchen", description: "", project: nil)
-        let room2: Room = .init(name: "Bathroom", description: "", project: nil)
+        var currentRoom: Room = Room(name: "Living Room", description: "")
+        let room1: Room = .init(name: "Kitchen", description: "")
+        let room2: Room = .init(name: "Bathroom", description: "")
         var connections: [RoomConnection] = []
         
         RoomConnectionListView(currentRoom: currentRoom, rooms: [currentRoom, room1, room2])
