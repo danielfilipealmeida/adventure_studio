@@ -53,17 +53,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7B26B049-4D42-4E1B-B039-85C341E9E3B0"
+            uuid = "2FA38758-0A55-40F6-A442-179BD1F7A3CB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AdventureStudio/Dialogs/RoomConnectionEditView.swift"
+            filePath = "AdventureStudio/UI Blocks/RoomConnectionListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "init(showView:mode:roomOrigin:rooms:connection:)"
-            landmarkType = "7">
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

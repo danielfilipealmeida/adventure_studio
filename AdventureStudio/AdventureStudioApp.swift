@@ -7,6 +7,12 @@
 
 import SwiftUI
 import SwiftData
+import UniformTypeIdentifiers
+
+extension UTType {
+    static var adventureStudio = UTType(exportedAs: "com.example.adventureStudio")
+}
+
 
 enum ProjectElement {
     case Rooms
@@ -40,9 +46,16 @@ struct AdventureStudioApp: App {
     }()
 
     var body: some Scene {
+        #if os(iOS) || os(macOS)
+        DocumentGroup(editing: [Room.self, RoomConnection.self, Obj.self], contentType: .adventureStudio){
+        //DocumentGroup(editing: Room.self, contentType: .adventureStudio){
+            ContentView().environment(appState)
+        }
+        #else
         WindowGroup {
             ContentView().environment(appState)
         }
         .modelContainer(sharedModelContainer)
+        #endif
     }
 }

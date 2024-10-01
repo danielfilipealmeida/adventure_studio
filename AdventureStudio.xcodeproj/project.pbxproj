@@ -63,6 +63,7 @@
 		65D34AE62C9E2BE400C13CC7 /* ListViewButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewButtons.swift; sourceTree = "<group>"; };
 		65D34AED2C9F224400C13CC7 /* RoomConnectionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomConnectionListView.swift; sourceTree = "<group>"; };
 		65D34AEF2CA1B39D00C13CC7 /* RoomConnectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomConnectionEditView.swift; sourceTree = "<group>"; };
+		65D34AF42CA7637C00C13CC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		65E606082C9CCE46001ED126 /* PreviewModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModelContainer.swift; sourceTree = "<group>"; };
 		65E6060A2C9CEBBE001ED126 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,6 +117,7 @@
 		659958772C922577008D0D46 /* AdventureStudio */ = {
 			isa = PBXGroup;
 			children = (
+				65D34AF42CA7637C00C13CC7 /* Info.plist */,
 				65D34AEC2C9F216A00C13CC7 /* Views */,
 				65D34AEB2C9F214F00C13CC7 /* UI Blocks */,
 				65D34AE92C9F213200C13CC7 /* Dialogs */,
@@ -512,6 +514,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AdventureStudio/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -541,6 +544,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AdventureStudio/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

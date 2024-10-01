@@ -20,3 +20,17 @@ final class Obj {
         self.pickable = pickable
     }
 }
+
+extension Obj: Hashable {
+    static func == (lhs: Obj, rhs: Obj) -> Bool {
+        lhs.name == rhs.name &&
+        lhs.desc == rhs.desc &&
+        lhs.pickable == rhs.pickable
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(desc)
+        hasher.combine(pickable)
+    }
+}

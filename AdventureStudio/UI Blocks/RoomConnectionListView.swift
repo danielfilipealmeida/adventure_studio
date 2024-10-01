@@ -16,7 +16,7 @@ struct RoomConnectionListView: View {
     var rooms: [Room]
     @State var currentRoomConnection: RoomConnection?
     @State var showRoomConnectionEditView: Bool = false
-    @State var roomConnectionEditViewMode: RoomConnectionEditViewMode = .Edit
+    @State var roomConnectionEditViewMode: RoomConnectionEditViewMode = .Create
     @Query private var connections: [RoomConnection]
     
     var body: some View {

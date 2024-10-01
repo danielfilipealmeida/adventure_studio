@@ -36,8 +36,8 @@ struct RoomConnectionEditView: View {
         self.rooms = rooms
         self.connection = connection
         
-        if self._mode.wrappedValue == .Edit {
-            self.connection = connection!
+        if self._mode.wrappedValue == .Edit, let con = connection {
+            self.connection = con
             
             self.destinyRoom = connection!.destiny
             self.allowInverseDirection = connection!.allowedInverseDirection

@@ -37,3 +37,16 @@ final class Room {
         self.desc = description
     }
 }
+
+
+extension Room: Hashable {
+    static func == (lhs: Room, rhs: Room) -> Bool {
+        lhs.name == rhs.name &&
+        lhs.desc == rhs.desc
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(desc)
+    }
+}

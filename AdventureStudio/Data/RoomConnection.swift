@@ -27,3 +27,20 @@ final class RoomConnection {
         self.allowedInverseDirection = allowedInverseDirection
     }
 }
+
+extension RoomConnection: Hashable {
+    static func == (lhs: RoomConnection, rhs: RoomConnection) -> Bool {
+        lhs.origin == rhs.origin &&
+        lhs.destiny == rhs.destiny &&
+        lhs.direction == rhs.direction &&
+        lhs.allowedInverseDirection == rhs.allowedInverseDirection
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(origin)
+        hasher.combine(destiny)
+        hasher.combine(direction)
+        hasher.combine(allowedInverseDirection)
+    }
+}
+
