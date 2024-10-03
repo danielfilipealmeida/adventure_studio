@@ -23,11 +23,16 @@ let DirectionLabels = [
 ]
 
 @Model
-final class Room {
+final class Room: Codable {
     var name: String
     var desc: String
     
     var connections: [RoomConnection] = []
+    
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case desc
+    }
     
     init(
         name: String,
@@ -35,6 +40,19 @@ final class Room {
     ) {
         self.name = name
         self.desc = description
+    }
+    
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.desc = try container.decode(String.self, forKey: .desc)
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(desc, forKey: .desc)
+        
     }
 }
 

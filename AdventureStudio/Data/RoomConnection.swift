@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class RoomConnection {
+final class RoomConnection: Codable {
     
     @Relationship(inverse: \Room.connections)
     var origin: Room?
@@ -20,11 +20,34 @@ final class RoomConnection {
     var direction: Direction
     var allowedInverseDirection: Bool
     
+    private enum CodingKeys: String, CodingKey {
+        case origin
+        case destiny
+        case direction
+        case allowedInverseDirection
+    }
+    
     init(origin: Room, destiny: Room, direction: Direction, allowedInverseDirection: Bool) {
         self.origin = origin
         self.destiny = destiny
         self.direction = direction
         self.allowedInverseDirection = allowedInverseDirection
+    }
+    
+    init(from decoder: any Decoder) throws {
+        var container = try decoder.container(keyedBy: CodingKeys.self)
+        self.origin = try container.decode(Room.self, forKey: .origin)
+        self.destiny = try container.decode(Room.self, forKey: .destiny)
+        self.direction = try container.decode(Direction.self, forKey: .direction)
+        self.allowedInverseDirection = try container.decode(Bool.self, forKey: .allowedInverseDirection)
+    }
+    
+    func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(origin, forKey: .origin)
+        try container.encode(destiny, forKey: .destiny)
+        try container.encode(direction, forKey: .direction)
+        try container.encode(allowedInverseDirection, forKey: .allowedInverseDirection)
     }
 }
 
