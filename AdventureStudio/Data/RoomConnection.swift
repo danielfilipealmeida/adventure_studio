@@ -21,6 +21,7 @@ final class RoomConnection: Codable {
     var allowedInverseDirection: Bool
     
     private enum CodingKeys: String, CodingKey {
+        case id
         case origin
         case destiny
         case direction
@@ -35,7 +36,7 @@ final class RoomConnection: Codable {
     }
     
     init(from decoder: any Decoder) throws {
-        var container = try decoder.container(keyedBy: CodingKeys.self)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         self.origin = try container.decode(Room.self, forKey: .origin)
         self.destiny = try container.decode(Room.self, forKey: .destiny)
         self.direction = try container.decode(Direction.self, forKey: .direction)
@@ -44,8 +45,9 @@ final class RoomConnection: Codable {
     
     func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(origin, forKey: .origin)
-        try container.encode(destiny, forKey: .destiny)
+        try container.encode(persistentModelID.hashValue, forKey: .id)
+        try container.encode(origin?.persistentModelID.hashValue, forKey: .origin)
+        try container.encode(destiny?.persistentModelID.hashValue, forKey: .destiny)
         try container.encode(direction, forKey: .direction)
         try container.encode(allowedInverseDirection, forKey: .allowedInverseDirection)
     }
@@ -60,10 +62,13 @@ extension RoomConnection: Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(origin)
-        hasher.combine(destiny)
-        hasher.combine(direction)
-        hasher.combine(allowedInverseDirection)
+        if let _origin = self.origin {
+            hasher.combine(_origin)
+        }
+        //hasher.combine(self.origin)
+        hasher.combine(self.destiny)
+        hasher.combine(self.direction)
+        hasher.combine(self.allowedInverseDirection)
     }
 }
 

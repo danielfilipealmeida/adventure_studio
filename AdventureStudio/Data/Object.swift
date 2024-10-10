@@ -15,6 +15,7 @@ final class Obj: Codable {
     var pickable: Bool
     
     private enum CodingKeys : String, CodingKey {
+        case id
         case name
         case desc
         case pickable
@@ -35,6 +36,7 @@ final class Obj: Codable {
     
     func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(persistentModelID.hashValue, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(desc, forKey: .desc)
         try container.encode(pickable, forKey: .pickable)

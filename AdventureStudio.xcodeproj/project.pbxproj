@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		651F88052C99F43A008E629F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 651F88042C99F43A008E629F /* README.md */; };
 		6568999E2CAED83D0003A27C /* Exporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6568999D2CAED83D0003A27C /* Exporter.swift */; };
+		656899A12CB425490003A27C /* RoomTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656899A02CB425440003A27C /* RoomTests.swift */; };
+		656899A22CB425AF0003A27C /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958A62C9229D1008D0D46 /* Room.swift */; };
+		656899A32CB42A7D0003A27C /* RoomConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 651F88092C9B933D008E629F /* RoomConnection.swift */; };
+		656899A42CB42A7D0003A27C /* PreviewModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E606082C9CCE46001ED126 /* PreviewModelContainer.swift */; };
+		656899A52CB42A7D0003A27C /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65E6060A2C9CEBBE001ED126 /* Object.swift */; };
+		657680712CB80AE400FD1793 /* ExporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 657680702CB80AE400FD1793 /* ExporterTests.swift */; };
+		657680722CB80CAD00FD1793 /* Exporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6568999D2CAED83D0003A27C /* Exporter.swift */; };
 		659958792C922577008D0D46 /* AdventureStudioApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 659958782C922577008D0D46 /* AdventureStudioApp.swift */; };
 		6599587B2C922577008D0D46 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6599587A2C922577008D0D46 /* ContentView.swift */; };
 		6599587F2C922579008D0D46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6599587E2C922579008D0D46 /* Assets.xcassets */; };
@@ -48,6 +55,8 @@
 		651F88042C99F43A008E629F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		651F88092C9B933D008E629F /* RoomConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomConnection.swift; sourceTree = "<group>"; };
 		6568999D2CAED83D0003A27C /* Exporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exporter.swift; sourceTree = "<group>"; };
+		656899A02CB425440003A27C /* RoomTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomTests.swift; sourceTree = "<group>"; };
+		657680702CB80AE400FD1793 /* ExporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExporterTests.swift; sourceTree = "<group>"; };
 		659958752C922577008D0D46 /* AdventureStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AdventureStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659958782C922577008D0D46 /* AdventureStudioApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdventureStudioApp.swift; sourceTree = "<group>"; };
 		6599587A2C922577008D0D46 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +104,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6568999F2CB4253C0003A27C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				656899A02CB425440003A27C /* RoomTests.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		6599586C2C922577008D0D46 = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +163,9 @@
 		6599588B2C922579008D0D46 /* AdventureStudioTests */ = {
 			isa = PBXGroup;
 			children = (
+				6568999F2CB4253C0003A27C /* Data */,
 				6599588C2C922579008D0D46 /* AdventureStudioTests.swift */,
+				657680702CB80AE400FD1793 /* ExporterTests.swift */,
 			);
 			path = AdventureStudioTests;
 			sourceTree = "<group>";
@@ -354,7 +373,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656899A12CB425490003A27C /* RoomTests.swift in Sources */,
 				6599588D2C922579008D0D46 /* AdventureStudioTests.swift in Sources */,
+				657680722CB80CAD00FD1793 /* Exporter.swift in Sources */,
+				657680712CB80AE400FD1793 /* ExporterTests.swift in Sources */,
+				656899A32CB42A7D0003A27C /* RoomConnection.swift in Sources */,
+				656899A42CB42A7D0003A27C /* PreviewModelContainer.swift in Sources */,
+				656899A52CB42A7D0003A27C /* Object.swift in Sources */,
+				656899A22CB425AF0003A27C /* Room.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
