@@ -8,114 +8,135 @@
 import SwiftUI
 import SwiftData
 
+let titles: [ProjectElement: String] = [
+    .Objects: "Adventure Studio > Objects",
+    .Rooms: "Adventure Studio > Rooms"
+]
+
+let backgroundColors:[ProjectElement: Color] = [
+    .Objects: Color.orange.opacity(0.05),
+    .Rooms: Color.blue.opacity(0.05)
+]
+
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AppState.self) private var appState
-    @Query private var projects: [Project]
-    @State private var currentProject: Project?
+    @Query private var rooms: [Room]
+    @Query private var objects: [Obj]
     @State private var currentRoom: Room?
     @State private var currentObject: Obj?
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $currentProject) {
-                ForEach(projects, id: \.self) { project in
-                    NavigationLink(project.name, value: project)
+            if appState.mode == .Rooms {
+                List(selection: $currentRoom) {
+                    ForEach(rooms, id: \.self) { room in
+                        NavigationLink(room.name, value: room)
+                    }
                 }
-                .onDelete(perform: deleteProjects)
-            }.onChange(of: currentProject) {
-                appState.currentProject = currentProject
-            }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addProject) {
-                        Label("Add Project", systemImage: "plus")
+                .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+                .toolbar {
+                    ToolbarItem {
+                        Button(action: addRoom) {
+                            Label("Add Room", systemImage: "plus")
+                        }
+                        
+                    }
+                    ToolbarItem {
+                        Button(action: deleteRoom) {
+                            Label("Delete Room", systemImage: "minus")
+                        }
                     }
                     
-                }
-                ToolbarItem {
-                    Button(action: setRoomMode) {
-                        Label("Rooms Mode", systemImage: "house.fill")
+                    ToolbarItem {
+                        Button(action: setObjectMode) {
+                            Label("Objects Mode", systemImage: "shippingbox.fill")
+                        }
                     }
-                }
-                ToolbarItem {
-                    Button(action: setObjectMode) {
-                        Label("Objects Mode", systemImage: "shippingbox.fill")
-                    }
-                }
-             
-            }
-        } content: {
-            if appState.mode == .Rooms {
-                if let project = currentProject {
-                    RoomsListView(
-                        currentRoom: $currentRoom,
-                        currentProject: $currentProject,
-                        rooms: project.rooms
-                    )
-                }
-                else {
-                    Text ("Please select a Project")
                 }
             }
             else if appState.mode == .Objects {
-               
-                if let project = currentProject {
-                    ObjectsListView(
-                        currentObject: $currentObject,
-                        currentProject: $currentProject,
-                        objects: project.objects
-                    )
-                }
-                
-            }
-            else {
-                Text("Invalid mode")
-            }
-            
-        } detail: {
-            if let project = currentProject {
-                if appState.mode == .Rooms {
-                    if let room = currentRoom {
-                        RoomsView(currentRoom: room, rooms: project.rooms)
-                            .id(room.id)
-                    } else {
-                        Text("Select a Room")
+                List(selection: $currentObject) {
+                    ForEach(objects, id: \.self) { object in
+                        NavigationLink(object.name, value: object)
                     }
                 }
-                if appState.mode == .Objects {
-                    if let object = currentObject {
-                        ObjectsView(currentObject: object)
-                            .id(object.id)
-                    } else {
-                        Text("Select an Object")
+                .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+                .toolbar {
+                    ToolbarItem {
+                        Button(action: addObject) {
+                            Label("Add Object", systemImage: "plus")
+                        }
+                        
+                    }
+                    ToolbarItem {
+                        Button(action: deleteObject) {
+                            Label("Delete Object", systemImage: "minus")
+                        }
+                    }
+                    
+                    
+                    ToolbarItem {
+                        Button(action: setRoomMode) {
+                            Label("Rooms Mode", systemImage: "house.fill")
+                        }
                     }
                 }
-            } else {
-                Text("No project selected")
             }
-            
         }
+        detail: {
+            if appState.mode == .Rooms {
+                if let room = currentRoom {
+                    RoomsView(currentRoom: room, rooms: rooms)
+                        .id(room.id)
+                } else {
+                    Text("Select a Room")
+                }
+            }
+            if appState.mode == .Objects {
+                if let object = currentObject {
+                    ObjectsView(currentObject: object)
+                        .id(object.id)
+                } else {
+                    Text("Select an Object")
+                }
+            }
+        }.navigationTitle(titles[appState.mode] ?? "no title")
+            .background(backgroundColors[appState.mode])
         
     }
-
-    private func addProject() {
+    
+    private func addObject() {
         withAnimation {
-            let newProject = Project(name: "New Project", firstRoomIndex: 0)
-            modelContext.insert(newProject)
-        }
-    }
-
-    private func deleteProjects(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(projects[index])
-            }
+            let newObject = Obj(name: "New Object",
+                                description: "Add the object description",
+                                pickable: true)
+            modelContext.insert(newObject)
         }
     }
     
+    private func deleteObject() {
+        withAnimation {
+            guard let object = currentObject else { return }
+            modelContext.delete(object)
+            currentObject = nil
+        }
+    }
     
+    private func addRoom() {
+        withAnimation {
+            let newRoom = Room(name: "New Room", description: "Add the room description")
+            modelContext.insert(newRoom)
+        }
+    }
+    
+    private func deleteRoom() {
+        withAnimation {
+            guard let project = currentRoom else { return }
+            modelContext.delete(project)
+            currentRoom = nil
+        }
+    }
     
     private func setRoomMode() {
         appState.mode = .Rooms
@@ -131,35 +152,26 @@ struct ContentView: View {
 #Preview {
     VStack {
         @State var appState = AppState()
-        let projectsData:[Dictionary] = [
-            [
-                "name": "Project one",
-                "rooms": [
-                    [
-                        "name": "Garden",
-                        "desc": "Lorem Ipsum"
-                    ],
-                    [
-                        "name": "Porch",
-                        "desc": "blah blah"
-                    ]
+        
+        let previewContainer = getPreviewModelContainer(
+            rooms: [
+                [
+                    "name": "Garden",
+                    "desc": "Lorem Ipsum"
+                ],
+                [
+                    "name": "Porch",
+                    "desc": "blah blah"
                 ]
             ],
-            [
-                "name": "Project two",
-                "rooms": [
-                    [
-                        "name": "Green path",
-                        "desc": "Lorem Ipsum"
-                    ],
-                    [
-                        "name": "Mountain top",
-                        "desc": "blah blah"
-                    ]
+            objects: [
+                [
+                    "name": "Knife",
+                    "desc": "blah"
                 ]
+                
             ]
-        ]
-        let previewContainer = getPreviewModelContainer(projectsData: projectsData)
+        )
         ContentView()
             .modelContainer(previewContainer)
             .environment(appState)

@@ -24,19 +24,21 @@ struct ObjectsView: View {
     
     var body: some View {
         VStack(alignment: .trailing, spacing: 20) {
+            Spacer()
             Form {
                 TextField("Name", text: $name)
-                
-                TextEditor(text: $description)
-                
+                LabeledContent("Description") {
+                    TextEditor(text: $description)
+                }
                 Toggle(isOn: $pickable) {
-                    Text("Picakble")
+                    Text("Pickable")
                 }
             }
-            
+            Spacer()
             Button(action: saveObject) {
                 Text("Save Object")
             }
+            Spacer()
         }.padding()
     }
     

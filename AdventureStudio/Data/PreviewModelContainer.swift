@@ -12,10 +12,12 @@ import SwiftData
 /// a ModelContainer with data
 /// - Parameter projectsData: an array of dictionaries with all projects data
 /// - Returns: <#description#>
-@MainActor func getPreviewModelContainer(projectsData: [Dictionary<String, Any>]) -> ModelContainer {
+@MainActor func getPreviewModelContainer(rooms: [Dictionary<String, Any>], objects: [Dictionary<String, Any>] ) -> ModelContainer {
     do {
         let schema = Schema([
-            Project.self,
+            Room.self,
+            Obj.self,
+            RoomConnection.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         
@@ -23,6 +25,7 @@ import SwiftData
             let modelContainer =  try ModelContainer(for: schema, configurations: [modelConfiguration])
                     
             // todo, extract this into a new function. more functions will be needed for setting other database tables
+            /*
             for project in projectsData {
                 
                let rooms:[Room] = {
@@ -42,7 +45,17 @@ import SwiftData
                
                 modelContainer.mainContext.insert(newProject)
             }
-             
+             */
+            
+            for room in rooms {
+                let newRoom = Room(name: room["name"] as! String, description: room["desc"] as! String)
+                modelContainer.mainContext.insert(newRoom)
+            }
+            
+            for object in objects {
+                let newObject = Obj(name: object["name"] as! String, description: object["desc"] as! String, pickable: true)
+                modelContainer.mainContext.insert(newObject)
+            }
             
             return modelContainer
         } catch {
