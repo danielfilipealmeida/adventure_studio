@@ -142,12 +142,12 @@
 				65D34AE92C9F213200C13CC7 /* Dialogs */,
 				65E6060E2C9CED6D001ED126 /* UI Elements */,
 				659958A52C9229AA008D0D46 /* Data */,
+				6568999D2CAED83D0003A27C /* Exporter.swift */,
 				659958782C922577008D0D46 /* AdventureStudioApp.swift */,
 				6599587A2C922577008D0D46 /* ContentView.swift */,
 				6599587E2C922579008D0D46 /* Assets.xcassets */,
 				659958832C922579008D0D46 /* AdventureStudio.entitlements */,
 				659958802C922579008D0D46 /* Preview Content */,
-				6568999D2CAED83D0003A27C /* Exporter.swift */,
 			);
 			path = AdventureStudio;
 			sourceTree = "<group>";
