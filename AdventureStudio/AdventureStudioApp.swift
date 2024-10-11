@@ -81,12 +81,14 @@ struct AdventureStudioApp: App {
         if panel.runModal() == .OK {
             do {
                 let rooms: [Room] = try sharedModelContainer.mainContext.fetch(FetchDescriptor<Room>())
-                let exporter: Exporter = Exporter(url: panel.url!, rooms: rooms)
+                let connections: [RoomConnection] = try sharedModelContainer.mainContext.fetch(FetchDescriptor<RoomConnection>())
+                let objects: [Obj] = try sharedModelContainer.mainContext.fetch(FetchDescriptor<Obj>())
+                let exporter: Exporter = Exporter(url: panel.url!, rooms: rooms, roomConnections: connections, objects: objects)
                 try exporter.run()
             }
             catch {
                 let alert: NSAlert = NSAlert()
-                alert.messageText = "Error Exporting file"
+                alert.messageText = "Error Exporting Project"
                 alert.runModal()
             }
             

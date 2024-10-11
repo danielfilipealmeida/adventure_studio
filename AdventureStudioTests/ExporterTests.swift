@@ -24,20 +24,26 @@ final class ExporterTests: XCTestCase {
         context.insert(connection1)
         room1.connections = [connection1]
         
-        let exporter: Exporter = Exporter(url: Bundle.main.executableURL!, rooms: [room1, room2])
-        //let jsonData = try exporter.getJSON()
+        let obj1 = Obj(name: "knife", description: "A description", pickable: true)
+        let obj2 = Obj(name: "mirror", description: "A description", pickable: true)
+        
+        let exporter: Exporter = Exporter(
+            url: Bundle.main.executableURL!,
+            rooms: [room1, room2],
+            roomConnections: [connection1],
+            objects: [obj1, obj2]
+        
+        )
         let jsonEncoder: JSONEncoder = JSONEncoder()
         let jsonData: Data = try jsonEncoder.encode(exporter)
         
         let resultDict = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any]
        
         // update when adding more data to the export
-        XCTAssert(resultDict!.keys.count == 1)
-        XCTAssertEqual(Array(resultDict!.keys), ["rooms"])
-        //XCTAssert(resultDict!["rooms"].count == 2)
-        //print(jsonData.description)
-        
-        
+        XCTAssert(resultDict!.keys.count == 3)
+        XCTAssertTrue(Array(resultDict!.keys).contains(["rooms"]))
+        XCTAssertTrue(Array(resultDict!.keys).contains(["roomConnections"]))
+        XCTAssertTrue(Array(resultDict!.keys).contains(["objects"]))        
     }
 
 }
